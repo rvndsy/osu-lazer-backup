@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("node:path");
 const Realm = require("realm");
+const fs = require("fs").promises;
+const os = require("os");
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -22,7 +24,7 @@ const createWindow = () => {
     if (!result.canceled && result.filePaths.length > 0) {
       return result.filePaths[0];
     } else {
-      throw new Error("No file selected");
+      return null;
     }
   });
 
@@ -38,6 +40,44 @@ const createWindow = () => {
     } catch (err) {
       return { error: "Failed to read the Realm file." };
     }
+  });
+
+  ipcMain.handle("show-save-dialog", async (event, options) => {
+    const result = await dialog.showSaveDialog(options);
+    return result;
+  });
+
+  ipcMain.handle("save-file", async (event, filePath, content) => {
+    try {
+      await fs.writeFile(filePath, content, "utf8");
+      return { success: true };
+    } catch (error) {
+      throw new Error("Failed to save the file.");
+    }
+  });
+
+  ipcMain.handle("get-default-path", async () => {
+    const platform = os.platform();
+    const homeDir = os.homedir();
+    let readFilePath = "";
+
+    if (platform === "win32") {
+      readFilePath = path.join(process.env.APPDATA, "osu", "files");
+    } else if (platform === "darwin") {
+      readFilePath = path.join(
+        homeDir,
+        "Library",
+        "Application Support",
+        "osu",
+        "files",
+      );
+    } else if (platform === "linux") {
+      readFilePath = path.join(homeDir, ".local", "share", "osu", "files");
+    } else {
+      console.error("Unsupported platform");
+    }
+
+    return readFilePath;
   });
 };
 
