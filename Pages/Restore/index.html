@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../../style.css" rel="stylesheet" />
+
+    <title>Backup</title>
+  </head>
+  <body>
+    <h1>Restore</h1>
+
+    <div class="flex text-center">
+      <div class="flex-col">
+        <button id="select-backup-file-btn">Select Backup File</button>
+        <span id="backup-label"></span>
+      </div>
+      <div class="flex-col">
+        <button id="select-skip-file-btn">Select Skip File</button>
+        <span id="skip-label"></span>
+      </div>
+    </div>
+
+    <button id="select-save-folder-btn" disabled>Select Save Folder</button>
+    <span id="save-folder-label"></span>
+
+    <button id="download-btn" disabled>Download</button>
+
+    <button id="back-to-main">Back to Main</button>
+
+    <script src="Organizer.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

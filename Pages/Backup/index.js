@@ -5,22 +5,38 @@ document.getElementById("back-to-main").addEventListener("click", function () {
 });
 
 document
-  .getElementById("read-backup")
+  .getElementById("select-file-btn")
   .addEventListener("click", async function () {
     try {
       const filePath = await window.backupAPI.openFileDialog();
 
       if (!filePath) return;
 
+      organizer.setReadFilePath(filePath);
+    } catch (err) {
+      alert("Failed to load backup data.");
+    }
+  });
+
+document
+  .getElementById("fetch-data-btn")
+  .addEventListener("click", async function () {
+    try {
+      const filePath = organizer.getReadFilePath();
+
+      document.getElementById("fetch-data-msg").innerText =
+        "Preparing Backup File";
+
       const { data, error } = await window.backupAPI.readRealmFile(filePath);
       if (error) {
         throw new Error(error);
       }
 
-      organizer.setReadFilePath(filePath);
       organizer.setData(data);
     } catch (err) {
-      alert("Failed to load backup data.");
+      document.getElementById("fetch-data-msg").innerText =
+        err +
+        "\nCheck the given path and make sure provided file is not corrupted.";
     }
   });
 
