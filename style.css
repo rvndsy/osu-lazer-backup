@@ -77,6 +77,11 @@ p {
   color: #dc3545;
 }
 
+.px-50 {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 #download-info-container {
   width: 400px;
   height: 300px;

@@ -10,39 +10,44 @@ class Organizer {
 
   start() {
     this.started = true;
-    document.getElementById("stop-btn").disabled = false;
+    this.setBtnDisabled("stop-btn", false);
     this.disableAll();
+    addDownloadInfo("Download started.");
   }
 
   disableAll() {
     const ids = [
-      "select-backup-file-btn",
-      "select-skip-file-btn",
-      "select-save-folder-btn",
+      "backup-file-btn",
+      "skip-file-btn",
+      "save-folder-btn",
       "download-btn",
     ];
 
-    ids.forEach((id) => (document.getElementById(id).disabled = true));
+    ids.forEach((id) => this.setBtnDisabled(id, true));
   }
 
   enableAll() {
     const ids = [
-      "select-backup-file-btn",
-      "select-skip-file-btn",
-      "select-save-folder-btn",
+      "backup-file-btn",
+      "skip-file-btn",
+      "save-folder-btn",
       "download-btn",
     ];
 
-    ids.forEach((id) => (document.getElementById(id).disabled = false));
+    ids.forEach((id) => this.setBtnDisabled(id, false));
   }
 
   stop(stopMsg, err = true) {
     organizer.generateRemainingsFile();
     this.started = false;
     addDownloadInfo(stopMsg, err);
-    document.getElementById("stop-btn").disabled = true;
-    document.getElementById("download-file-btn").disabled = false;
+    this.setBtnDisabled("stop-btn", true);
+    this.setBtnDisabled("download-file-btn", false);
     this.enableAll();
+  }
+
+  setBtnDisabled(id, value) {
+    document.getElementById(id).disabled = value;
   }
 
   isStarted() {
@@ -66,7 +71,7 @@ class Organizer {
 
   setBackupData(data) {
     this.backupData = [...new Set(data.filter((item) => item >= 0))];
-    document.getElementById("select-save-folder-btn").disabled = false;
+    this.setBtnDisabled("save-folder-btn", false);
 
     document.getElementById("backup-label").innerText =
       `Found ${this.backupData.length} beatmapIds`;
@@ -80,7 +85,7 @@ class Organizer {
 
   setSavePath(path) {
     this.savePath = path;
-    document.getElementById("download-btn").disabled = false;
+    this.setBtnDisabled("download-btn", false);
     document.getElementById("save-folder-label").innerText =
       `Beatmaps will be downloaded to ${path}`;
   }

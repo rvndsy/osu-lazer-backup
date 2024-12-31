@@ -10,18 +10,24 @@
   <body>
     <h1>Restore</h1>
 
+    <div class="text-center px-50">
+      Add a skip file to exclude certain beatmaps. This will download only the
+      beatmaps listed in the provided backup file and exclude those in the skip
+      file.
+    </div>
+
     <div class="flex text-center">
       <div class="flex-col">
-        <button id="select-backup-file-btn">Select Backup File</button>
+        <button id="backup-file-btn">Select Backup File</button>
         <span id="backup-label"></span>
       </div>
       <div class="flex-col">
-        <button id="select-skip-file-btn">Select Skip File</button>
+        <button id="skip-file-btn">Select Skip File</button>
         <span id="skip-label"></span>
       </div>
     </div>
 
-    <button id="select-save-folder-btn" disabled>Select Save Folder</button>
+    <button id="save-folder-btn" disabled>Select Save Folder</button>
     <span id="save-folder-label"></span>
 
     <button id="download-btn" disabled>Download</button>
@@ -34,7 +40,7 @@
       </div>
       <div class="flex-col">
         <button id="stop-btn" disabled>Stop</button>
-        <span></span>
+        <span id="rate-limit-day-label"></span>
       </div>
     </div>
     <button id="back-to-main">Back to Main</button>

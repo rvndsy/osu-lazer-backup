@@ -4,7 +4,7 @@ document.getElementById("back-to-main").addEventListener("click", function () {
   window.location.href = "../../index.html";
 });
 
-addClickEvent("select-backup-file-btn", async function () {
+addClickEvent("backup-file-btn", async function () {
   try {
     const filePath = await window.restoreAPI.openFileDialog();
 
@@ -20,7 +20,7 @@ addClickEvent("select-backup-file-btn", async function () {
   }
 });
 
-addClickEvent("select-skip-file-btn", async function () {
+addClickEvent("skip-file-btn", async function () {
   try {
     const filePath = await window.restoreAPI.openFileDialog();
 
@@ -32,17 +32,17 @@ addClickEvent("select-skip-file-btn", async function () {
       alert("Failed to read JSON file:", error);
     }
   } catch (err) {
-    alert("Failed to load backup data.");
+    alert("Failed to load skip data.");
   }
 });
 
-addClickEvent("select-save-folder-btn", async function () {
+addClickEvent("save-folder-btn", async function () {
   try {
     const folderPath = await window.restoreAPI.openFolderDialog();
     if (!folderPath) return;
     organizer.setSavePath(folderPath);
   } catch (err) {
-    alert("Failed to load backup data.");
+    alert(err);
   }
 });
 
@@ -122,6 +122,8 @@ async function checkDailyLimit() {
     organizer.stop(stopMsg);
     return true;
   }
+  document.getElementById("rate-limit-day-label").innerText =
+    `${downloadCount} / 2000 (/day)`;
   if (downloadCount > 1600) {
     const stopMsg =
       "You are about to exceed daily api limit. Save your remaining beatmaps and continue tomorrow.";
