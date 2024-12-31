@@ -4,37 +4,28 @@ document.getElementById("back-to-main").addEventListener("click", function () {
   window.location.href = "../../index.html";
 });
 
-addClickEvent("backup-file-btn", async function () {
+async function openJsonFileAndSetData(action) {
   try {
     const filePath = await window.restoreAPI.openFileDialog();
-
     if (!filePath) return;
     try {
       const data = await window.restoreAPI.readJsonFile(filePath);
-      organizer.setBackupData(data);
+      action(data);
     } catch (error) {
-      alert("Failed to read JSON file:", error);
+      addDownloadInfo(`Failed to read JSON file: ${error.message}`, true);
     }
   } catch (err) {
-    alert("Failed to load backup data.");
+    addDownloadInfo(`Failed to load data: ${err.message}`, true);
   }
-});
+}
 
-addClickEvent("skip-file-btn", async function () {
-  try {
-    const filePath = await window.restoreAPI.openFileDialog();
+addClickEvent("backup-file-btn", () =>
+  openJsonFileAndSetData((data) => organizer.setBackupData(data)),
+);
 
-    if (!filePath) return;
-    try {
-      const data = await window.restoreAPI.readJsonFile(filePath);
-      organizer.setSkipData(data);
-    } catch (error) {
-      alert("Failed to read JSON file:", error);
-    }
-  } catch (err) {
-    alert("Failed to load skip data.");
-  }
-});
+addClickEvent("skip-file-btn", () =>
+  openJsonFileAndSetData((data) => organizer.setSkipData(data)),
+);
 
 addClickEvent("save-folder-btn", async function () {
   try {
