@@ -1,22 +1,81 @@
 class Organizer {
   constructor() {
+    this.started = false;
     this.backupData = null;
     this.skipData = null;
     this.savePath = null;
+    this.remainings = [];
+    this.cursor = 0;
+  }
+
+  start() {
+    this.started = true;
+    document.getElementById("stop-btn").disabled = false;
+    this.disableAll();
+  }
+
+  disableAll() {
+    const ids = [
+      "select-backup-file-btn",
+      "select-skip-file-btn",
+      "select-save-folder-btn",
+      "download-btn",
+    ];
+
+    ids.forEach((id) => (document.getElementById(id).disabled = true));
+  }
+
+  enableAll() {
+    const ids = [
+      "select-backup-file-btn",
+      "select-skip-file-btn",
+      "select-save-folder-btn",
+      "download-btn",
+    ];
+
+    ids.forEach((id) => (document.getElementById(id).disabled = false));
+  }
+
+  stop(stopMsg, err = true) {
+    organizer.generateRemainingsFile();
+    this.started = false;
+    addDownloadInfo(stopMsg, err);
+    document.getElementById("stop-btn").disabled = true;
+    document.getElementById("download-file-btn").disabled = false;
+    this.enableAll();
+  }
+
+  isStarted() {
+    return this.started;
+  }
+
+  setCursor(data) {
+    this.cursor = data;
+  }
+
+  generateRemainingsFile() {
+    const { data } = this.getFinalData();
+    this.remainings = data.slice(this.cursor);
+    document.getElementById("remaining-label").innerText =
+      `Found ${this.remainings.length} beatmapIds.`;
+  }
+
+  getRemainings() {
+    return this.remainings;
   }
 
   setBackupData(data) {
-    this.backupData = data;
+    this.backupData = [...new Set(data.filter((item) => item >= 0))];
     document.getElementById("select-save-folder-btn").disabled = false;
 
     document.getElementById("backup-label").innerText =
-      `Found ${data.length} beatmapIds`;
+      `Found ${this.backupData.length} beatmapIds`;
   }
 
   setSkipData(data) {
-    this.skipData = data;
+    this.skipData = [...new Set(data.filter((item) => item >= 0))];
     document.getElementById("skip-label").innerText =
-      `Found ${data.length} beatmapIds`;
+      `Found ${this.skipData.length} beatmapIds`;
   }
 
   setSavePath(path) {
@@ -27,9 +86,14 @@ class Organizer {
   }
 
   getFinalData() {
+    let result = this.backupData;
     if (this.skipData) {
-      return this.backupData.filter((item) => !this.skipData.includes(item));
+      result = this.backupData.filter((item) => !this.skipData.includes(item));
     }
-    return this.backupData;
+    return { data: result, totalNum: result.length };
+  }
+
+  getSavePath() {
+    return this.savePath;
   }
 }

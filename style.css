@@ -9,6 +9,20 @@ body {
   flex-direction: column;
 }
 
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #4a5568;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #2d3748;
+  border-radius: 10px;
+}
+
 button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -57,4 +71,32 @@ p {
 
 .text-center {
   text-align: center;
+}
+
+.err-text {
+  color: #dc3545;
+}
+
+#download-info-container {
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+  background-color: #2d3748;
+  border-radius: 5px;
+  padding: 5px;
+  color: #28a745;
+}
+
+#download-info-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+#download-info-container::-webkit-scrollbar-thumb {
+  background-color: #4a5568;
+  border-radius: 10px;
+}
+
+#download-info-container::-webkit-scrollbar-track {
+  background-color: #2d3748;
+  border-radius: 10px;
 }

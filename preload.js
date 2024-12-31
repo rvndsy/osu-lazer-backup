@@ -13,5 +13,7 @@ contextBridge.exposeInMainWorld("restoreAPI", {
   openFileDialog: () => ipcRenderer.invoke("restore-open-file-dialog"),
   readJsonFile: (filePath) => ipcRenderer.invoke("read-json-file", filePath),
   openFolderDialog: () => ipcRenderer.invoke("open-folder-dialog"),
-  downloadBeatmapset: (id) => ipcRenderer.invoke("download-beatmapset", id),
+  downloadBeatmapset: (id, savePath) =>
+    ipcRenderer.invoke("download-beatmapset", id, savePath),
+  getRateLimits: () => ipcRenderer.invoke("get-rate-limits"),
 });
