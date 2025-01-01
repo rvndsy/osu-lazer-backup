@@ -14,6 +14,7 @@ const createWindow = () => {
     },
   });
 
+  mainWindow.setMenuBarVisibility(false);
   mainWindow.loadFile("index.html");
 
   ipcMain.handle("open-file-dialog", async () => {
@@ -31,7 +32,7 @@ const createWindow = () => {
 
   ipcMain.handle("read-realm-file", async (_event, filePath) => {
     try {
-      const appDir = path.join(__dirname, "app_data");
+      const appDir = path.join(os.homedir(), "temp_for_client");
       const destinationPath = path.join(appDir, "client.realm");
       await fs.promises.mkdir(appDir, { recursive: true });
 
@@ -47,7 +48,7 @@ const createWindow = () => {
       await fs.promises.rm(appDir, { recursive: true, force: true });
       return { data: beatmapIds };
     } catch (err) {
-      return { error: "Failed to read the Realm file." };
+      return { error: "Failed to read the Realm file." + err };
     }
   });
 

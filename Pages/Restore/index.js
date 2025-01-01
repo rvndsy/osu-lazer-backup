@@ -73,7 +73,7 @@ addClickEvent("download-btn", async function () {
     if (!organizer.isStarted()) {
       return;
     }
-    if (!(index % 200)) {
+    if (!(index % 150)) {
       const stop = await checkDailyLimit();
       if (stop) return;
     }
@@ -113,9 +113,10 @@ async function checkDailyLimit() {
     organizer.stop(stopMsg);
     return true;
   }
-  document.getElementById("rate-limit-day-label").innerText =
-    `${downloadCount} / 2000 (/day)`;
-  if (downloadCount > 1600) {
+
+  if (downloadCount > 1900) {
+    document.getElementById("rate-limit-day-label").innerText =
+      `${downloadCount} / 2000 (/day)`;
     const stopMsg =
       "You are about to exceed daily api limit. Save your remaining beatmaps and continue tomorrow.";
 

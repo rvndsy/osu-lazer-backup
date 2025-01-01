@@ -1,5 +1,5 @@
 {
-  "name": "osu-electron",
+  "name": "osu-lazer-backup",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
@@ -8,13 +8,34 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^33.2.1"
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
   },
   "dependencies": {
     "axios": "^1.7.9",
     "realm": "^20.1.0"
+  },
+  "build": {
+    "appId": "com.osu.lazer.backup",
+    "productName": "Osu-Lazer Backup",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/*.map"
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility"
+    }
   }
 }
