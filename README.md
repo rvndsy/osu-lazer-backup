@@ -9,5 +9,5 @@ In restore, it iterates over provided file and downloads beatmaps using [mino ap
 
 ## ScreenShot
 
-<img src="../osu-electron/media/restore.png">
+<img src="./media/restore.png">
 
