@@ -72,13 +72,14 @@ const createWindow = () => {
     let readFilePath = "";
 
     if (platform === "win32") {
-      readFilePath = path.join(process.env.APPDATA, "osu");
+      readFilePath = path.join(process.env.APPDATA, "osu","client.realm");
     } else if (platform === "darwin") {
       readFilePath = path.join(
         homeDir,
         "Library",
         "Application Support",
         "osu",
+        "client.realm"
       );
     } else if (platform === "linux") {
       readFilePath = path.join(
@@ -86,7 +87,7 @@ const createWindow = () => {
         ".local",
         "share",
         "osu",
-        "client.realm",
+        "client.realm"
       );
     } else {
       console.error("Unsupported platform");

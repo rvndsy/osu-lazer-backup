@@ -29,13 +29,26 @@
       "**/*",
       "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
       "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-      "!**/*.map"
+      "!**/*.map",
+      "media/*"
     ],
     "linux": {
       "target": [
         "AppImage"
       ],
       "category": "Utility"
+    },
+    "win": {
+      "icon": "media/icon.ico",
+      "target": [
+        "nsis" 
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "allowElevation": true, 
+      "createDesktopShortcut": true,
+      "shortcutName": "osu-lazer-backup"
     }
   }
 }
