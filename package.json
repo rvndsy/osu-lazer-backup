@@ -1,6 +1,6 @@
 {
   "name": "osu-lazer-backup",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "license": "ISC",
   "author": "",
@@ -33,6 +33,7 @@
       "media/*"
     ],
     "linux": {
+      "icon": "media/icon.png",
       "target": [
         "AppImage"
       ],
@@ -41,12 +42,12 @@
     "win": {
       "icon": "media/icon.ico",
       "target": [
-        "nsis" 
+        "nsis"
       ]
     },
     "nsis": {
       "oneClick": true,
-      "allowElevation": true, 
+      "allowElevation": true,
       "createDesktopShortcut": true,
       "shortcutName": "osu-lazer-backup"
     }
