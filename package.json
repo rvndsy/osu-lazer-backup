@@ -42,14 +42,8 @@
     "win": {
       "icon": "media/icon.ico",
       "target": [
-        "nsis"
+        "portable"
       ]
-    },
-    "nsis": {
-      "oneClick": true,
-      "allowElevation": true,
-      "createDesktopShortcut": true,
-      "shortcutName": "osu-lazer-backup"
     }
   }
 }
