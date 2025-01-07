@@ -73,7 +73,7 @@ addClickEvent("download-btn", async function () {
     if (!organizer.isStarted()) {
       return;
     }
-    if (!(index % 150)) {
+    if (!(index % 100)) {
       const stop = await checkDailyLimit();
       if (stop) return;
     }
@@ -114,7 +114,7 @@ async function checkDailyLimit() {
     return true;
   }
 
-  if (downloadCount > 1900) {
+  if (downloadCount >= 1900) {
     document.getElementById("rate-limit-day-label").innerText =
       `${downloadCount} / 2000 (/day)`;
     const stopMsg =
