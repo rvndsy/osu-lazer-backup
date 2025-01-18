@@ -11,3 +11,13 @@ In restore, it iterates over provided file and downloads beatmaps using [mino ap
 
 <img src="./media/restore.png">
 
+## Installation
+### Linux (Arch)
+1. `git clone https://github.com/rvndsy/osu-lazer-backup.git`
+2. `cd osu-lazer-backup`
+3. Set up npm:
+    1. `npm init -y`
+    2. `npm install electron`
+4. Install `electron` browser
+    - Arch: `sudo pacman -S electron`
+5. Run with `electron main.js`
